@@ -1,0 +1,12 @@
+
+<% @posts.each do |post| %>
+  <article class="clearfix">
+    <div class="post-date">
+      <%= post.updated_at.strftime("%d.%m.%Y") %> | <%= post.user.name %> <span><a href=""><%= post.comments.count %> коментариев</a></span>
+    </div>    
+    <h2><a href="post-typography.html"><%= post.title %></a></h2>
+
+    <p><%=post.headline%> <%= link_to 'Читать далее', post %>
+    </p>
+  </article>
+<% end %>

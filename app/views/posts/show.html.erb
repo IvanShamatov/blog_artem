@@ -1,0 +1,62 @@
+<div class="@post-date">
+  <%= @post.updated_at.strftime("%d.%m.%Y") %> | <%= @post.user.name %> <span><a href=""><%= @post.comments.count %> коментариев</a></span>
+</div>    
+<!--            <h1>@post Image</h1> -->
+<div class="@post-intro"><%= @post.headline %></div>
+<%=image_tag @post.image.url, class: "img-responsive" %>
+<p>
+  <%= @post.body %>
+</p>
+
+<div id="author" class="clearfix">
+  <%= image_tag @post.user.avatar.url, class: "img-circle", size: "50x50"%>
+  <div class="author-info">
+    <h3><%= @post.user.name %></h3>
+  </div>
+</div>
+
+<br/>
+<h3><%= @comments.count %> коментариев</h3>  
+<div class="media">
+  <hr>
+  <% @comments.each do |comment| %>
+    <div class="media">
+      <a class="pull-left avatar" href="#">
+        <%= image_tag comment.user.avatar.url, class: "img-circle", size: "40x40"%>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><a href=""><%= comment.user.name %></a></h4>
+        <p><%= comment.body%></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<h3>Добавить новый коментарий</h3>
+<%= form_for @post.comments.new, url: post_comments_path(@post), class: "myform", id: "myform" do |f| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 wow fadeInUp" >
+      <div class="form-group">
+        <label class="control-label" for="contact-message">Присоединиться к дискуссии...</label>
+        <div class="controls">
+          <textarea name="comment[body]" placeholder="Присоединиться к дискуссии..." class="form-control input-lg requiredField" rows="3" data-error-empty="Please enter comment"></textarea>
+        </div>
+      </div>
+      <div class="row">
+      </div>  
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <button name="submit" type="submit" class="btn btn-block" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Comment Sent">Отправить комментарий</button>
+            <input type="hidden" name="submitted" id="submitted3" value="true">
+          </div>  
+        </div>  
+      </div>  
+
+
+    </div>
+  </div>
+<% end %>
